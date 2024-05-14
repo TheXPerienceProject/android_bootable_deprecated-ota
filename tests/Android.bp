@@ -12,58 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-cc_defaults {
-    name: "recovery_test_defaults",
-
-    defaults: [
-        "recovery_defaults",
-    ],
-
-    include_dirs: [
-        "bootable/recovery",
-    ],
-
-    shared_libs: [
-        "libbase",
-        "libcrypto",
-        "libcutils",
-        "liblog",
-        "libpng",
-        "libprocessgroup",
-        "libselinux",
-        "libziparchive",
-    ],
-
-    target: {
-        android: {
-            shared_libs: [
-                "libutils",
-                "libvndksupport",
-            ],
-        },
-
-        host: {
-            static_libs: [
-                "libutils",
-            ],
-        },
-    },
-}
-
-// recovery image for unittests.
-// ========================================================
-genrule {
-    name: "recovery_image",
-    cmd: "cat $(location testdata/recovery_head) <(cat $(location testdata/recovery_body) | gzip) $(location testdata/recovery_tail) > $(out)",
-    srcs: [
-        "testdata/recovery_head",
-        "testdata/recovery_body",
-        "testdata/recovery_tail",
-    ],
-    out: [
-        "testdata/recovery.img",
-    ],
-}
 
 cc_test_host {
     name: "recovery_host_test",
